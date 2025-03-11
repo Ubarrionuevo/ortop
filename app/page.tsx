@@ -11,16 +11,12 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from 
 export default function Home() {
   const [isSearchOpen, setIsSearchOpen] = useState(false)
   const [searchQuery, setSearchQuery] = useState("")
-  const [searchResults, setSearchResults] = useState<any[]>([])
-  const [showResults, setShowResults] = useState(false)
   const [isHoursModalOpen, setIsHoursModalOpen] = useState(false)
   const router = useRouter()
 
   // Function to handle search
   const handleSearch = () => {
     if (searchQuery.trim() === "") {
-      setSearchResults([])
-      setShowResults(false)
       return
     }
 
@@ -45,7 +41,7 @@ export default function Home() {
   // Close search results when clicking outside
   useEffect(() => {
     const handleClickOutside = () => {
-      setShowResults(false)
+      setIsSearchOpen(false)
     }
 
     document.addEventListener("mousedown", handleClickOutside)
