@@ -11,6 +11,7 @@ import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
 import { Label } from "@/components/ui/label"
 import { Checkbox } from "@/components/ui/checkbox"
 import { Textarea } from "@/components/ui/textarea"
+import Image from "next/image"
 
 interface Product {
   id: number;
@@ -54,7 +55,7 @@ export default function FormPage({ params }: { params: Promise<{ id: string }> }
   }
 
   // Handle form changes
-  const handleChange = (field: string, value: any) => {
+  const handleChange = (field: string, value: string | boolean) => {
     setFormData((prev) => ({ ...prev, [field]: value }))
   }
 
@@ -117,9 +118,11 @@ S: 9 a 12 hs`
       <main className="container px-4 py-6 max-w-2xl mx-auto">
         <div className="bg-white rounded-lg p-4 mb-6 flex items-center shadow-sm">
           <div className="w-16 h-16 mr-4">
-            <img
+            <Image
               src={product.image || "/placeholder.svg"}
               alt={product.name}
+              width={500}
+              height={500}
               className="w-full h-full object-cover rounded-md"
             />
           </div>
