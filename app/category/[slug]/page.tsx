@@ -1,16 +1,18 @@
 import Link from "next/link"
 import { ArrowLeft } from "lucide-react"
 
-export default function CategoryPage({ params }: { params: { slug: string } }) {
+export default async function Page({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = await params;
+
   // Find the category by slug
-  const category = categories.find((cat) => cat.slug === params.slug) || {
+  const category = categories.find((cat) => cat.slug === slug) || {
     id: 0,
     name: "Categoría no encontrada",
     image: "",
   }
 
   // Get products for this category
-  const categoryProducts = products.filter((product) => product.category === params.slug)
+  const categoryProducts = products.filter((product) => product.category === slug)
 
   return (
     <div className="min-h-screen bg-zinc-50">
