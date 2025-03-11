@@ -107,10 +107,10 @@ S: 9 a 12 hs`
     <div className="min-h-screen bg-zinc-50">
       <header className="sticky top-0 z-40 w-full border-b bg-white/95 backdrop-blur supports-[backdrop-filter]:bg-white/80">
         <div className="container flex h-14 items-center">
-          <Link href={`/category/${product.category}`} className="flex items-center space-x-2">
+          <Link href={`/category/${product.category}`} className="flex items-center space-x-2 ml-6">
             <ArrowLeft className="h-5 w-5 text-zinc-600" />
           </Link>
-          <h1 className="flex-1 text-center font-bold text-xl text-zinc-900">Formulario de Alquiler</h1>
+          <h1 className="flex-1 text-center font-bold text-xl text-zinc">Formulario de Alquiler</h1>
           <div className="w-10"></div> {/* Spacer for balance */}
         </div>
       </header>
