@@ -7,8 +7,8 @@ import Head from "next/head"
 const inter = Inter({ subsets: ["latin"] })
 
 export const metadata: Metadata = {
-  title: "BurgerApp - Comida rápida a domicilio",
-  description: "Ordena comida rápida a domicilio - Burgers, Lomos, Wraps y más",
+  title: "MarketOrtopedia - Equipos Ortopedicos de Mendoza",
+  description: "MarketOrtopedia es una empresa dedicada al alquiler de equipos ortopedicos de Mendoza, Argentina.",
 }
 
 export default function RootLayout({
@@ -19,8 +19,8 @@ export default function RootLayout({
   return (
     <html lang="es">
       <Head>
-        <title>BurgerApp - Comida rápida a domicilio</title>
-        <meta name="description" content="Ordena comida rápida a domicilio - Burgers, Lomos, Wraps y más" />
+        <title>MarketOrtopedia - Equipos Ortopedicos de Mendoz</title>
+        <meta name="description" content="MarketOrtopedia es una empresa dedicada al alquiler de equipos ortopedicos de Mendoza" />
       </Head>
       <body className={inter.className}>{children}</body>
     </html>
