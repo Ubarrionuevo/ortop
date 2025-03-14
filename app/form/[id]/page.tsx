@@ -88,6 +88,7 @@ ${formData.additionalInfo}
 L a V: 9 a 13 y 16 a 18 hs
 S: 9 a 12 hs`
 
+    console.log('Mensaje de WhatsApp:', decodeURIComponent(message));
     return encodeURIComponent(message)
   }
 
