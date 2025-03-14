@@ -219,7 +219,7 @@ const products: Product[] = [
     name: "Cama Ortopédica Manual",
     description: "Cama ortopédica con ajuste manual de altura y posición, incluye colchón",
     price: 25000,
-    image: "0",
+    image: "/cama.webp",
     category: "camas",
   },
   
