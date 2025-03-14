@@ -61,41 +61,16 @@ export default function FormPage({ params }: { params: Promise<{ id: string }> }
 
   // Format WhatsApp message
   const formatWhatsAppMessage = () => {
-    const message = `Solicitud de Alquiler - MARKET ortopedia:
-
-Producto: ${product.name}
-Duración: 30 días
-Precio: $${product.price.toFixed(2)}
-
-Forma de Alquiler:
-${formData.rentalPeriod === "30dias" ? "✔" : "✖"} Alquiler 30 días
-
-Acepto Requisitos:
-${formData.acceptRequirements ? "✔" : "✖"} Consultar los requisitos para poder alquilar
-
-Método de Pago:
-${formData.paymentMethod === "transferencia" ? "✔" : "✖"} Transferencia
-${formData.paymentMethod === "efectivo" ? "✔" : "✖"} Efectivo
-
-Método de Entrega:
-${formData.deliveryMethod === "presencial" ? "✔" : "✖"} Presencial Entrega en Federico Moreno 950, Ciudad, Mendoza
-${formData.deliveryMethod === "convenir" ? "✔" : "✖"} A convenir (costo)
-
-${formData.additionalInfo ? `Información Adicional:
-${formData.additionalInfo}
-
-` : ""}Horario de Atención:
-L a V: 9 a 13 y 16 a 18 hs
-S: 9 a 12 hs`
+    const message = `Solicitud de Alquiler - MARKET ortopedia:\n\nProducto: ${product.name}\nDuración: 30 días\nPrecio: $${product.price.toFixed(2)}\n\nForma de Alquiler: ${formData.rentalPeriod === "30dias" ? "Alquiler 30 días" : ""}\n\nAcepto Requisitos: ${formData.acceptRequirements ? "Consultar los requisitos para poder alquilar" : ""}\n\nMétodo de Pago: ${formData.paymentMethod === "transferencia" ? "Transferencia" : "Efectivo"}\n\nMétodo de Entrega: ${formData.deliveryMethod === "presencial" ? "Presencial" : "A convenir"}\n\n${formData.additionalInfo ? `Información Adicional: ${formData.additionalInfo}` : ""}`;
 
     console.log('Mensaje de WhatsApp:', decodeURIComponent(message));
-    return encodeURIComponent(message)
+    return encodeURIComponent(message);
   }
 
   // Handle form submission
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
-    const phoneNumber = "5492617153857" // Número de WhatsApp
+    const phoneNumber = "+5492613601278" // Número de WhatsApp
     const message = formatWhatsAppMessage()
     window.open(`https://wa.me/${phoneNumber}?text=${message}`, "_blank")
   }
