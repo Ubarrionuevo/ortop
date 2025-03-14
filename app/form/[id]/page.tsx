@@ -62,33 +62,29 @@ export default function FormPage({ params }: { params: Promise<{ id: string }> }
   // Format WhatsApp message
   const formatWhatsAppMessage = () => {
     const message = `Solicitud de Alquiler - MARKET ortopedia:
-⚪ ${product.name} por 30 días $${product.price.toFixed(2)}
 
-Precio Total: $${product.price.toFixed(2)}
+Producto: ${product.name}
+Duración: 30 días
+Precio: $${product.price.toFixed(2)}
 
-Forma
-${formData.rentalPeriod === "30dias" ? "⚫" : "⚪"}Alquiler 30 días
+Forma de Alquiler:
+${formData.rentalPeriod === "30dias" ? "✔" : "✖"} Alquiler 30 días
 
-Acepto
-${formData.acceptRequirements ? "⚫" : "⚪"}Consultar los requisitos para poder alquilar
+Acepto Requisitos:
+${formData.acceptRequirements ? "✔" : "✖"} Consultar los requisitos para poder alquilar
 
 Método de Pago:
-${formData.paymentMethod === "transferencia" ? "⚫" : "⚪"}Transferencia
-${formData.paymentMethod === "efectivo" ? "⚫" : "⚪"}Efectivo
+${formData.paymentMethod === "transferencia" ? "✔" : "✖"} Transferencia
+${formData.paymentMethod === "efectivo" ? "✔" : "✖"} Efectivo
 
 Método de Entrega:
-${formData.deliveryMethod === "presencial" ? "⚫" : "⚪"}Presencial Entrega en Federico Moreno 950, Ciudad, Mendoza
-${formData.deliveryMethod === "convenir" ? "⚫" : "⚪"}A convenir (costo)
+${formData.deliveryMethod === "presencial" ? "✔" : "✖"} Presencial Entrega en Federico Moreno 950, Ciudad, Mendoza
+${formData.deliveryMethod === "convenir" ? "✔" : "✖"} A convenir (costo)
 
-${
-  formData.additionalInfo
-    ? `⚫Información Adicional:
+${formData.additionalInfo ? `Información Adicional:
 ${formData.additionalInfo}
 
-`
-    : ""
-}
-⚫Horario
+` : ""}Horario de Atención:
 L a V: 9 a 13 y 16 a 18 hs
 S: 9 a 12 hs`
 
@@ -98,7 +94,7 @@ S: 9 a 12 hs`
   // Handle form submission
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
-    const phoneNumber = "5491112345678" // Replace with your actual WhatsApp number
+    const phoneNumber = "5492617153857" // Número de WhatsApp
     const message = formatWhatsAppMessage()
     window.open(`https://wa.me/${phoneNumber}?text=${message}`, "_blank")
   }
@@ -230,7 +226,7 @@ S: 9 a 12 hs`
             <p className="text-sm text-zinc-600">S: 9 a 12 hs</p>
           </div>
 
-          <Button type="submit" className="w-full bg-[#00a0e3] hover:bg-[#0088c2] text-white">
+          <Button type="submit" className="w-full bg-[#00a0e3] hover:bg-[#0088c2] text-white" onClick={() => window.location.href='https://wa.me/5492617153857'}>
             <Check className="mr-2 h-4 w-4" /> Enviar Solicitud por WhatsApp
           </Button>
         </form>
@@ -310,6 +306,22 @@ const products: Product[] = [
     image:
       "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/web-web-market-0e860da99f331263a317370662945940-480-0-arVwwSqJQk5PEqGqk4wC7N3byM99jV.webp",
     category: "muletas",
+  },
+  {
+    id: 9,
+    name: "Cama Ortopédica Manual",
+    description: "Cama ortopédica con ajuste manual de altura y posición, incluye colchón",
+    price: 25000,
+    image: "https://dcdn-us.mitiendanube.com/stores/005/403/653/products/web-web-market-6-bb319af72d3a87f45817370677591416-480-0.webp",
+    category: "camas",
+  },
+  {
+    id: 10,
+    name: "Cama Ortopédica Eléctrica",
+    description: "Cama ortopédica con control eléctrico para ajuste de altura y posición, incluye colchón premium",
+    price: 45000,
+    image: "https://dcdn-us.mitiendanube.com/stores/005/403/653/products/web-web-market-6-bb319af72d3a87f45817370677591416-480-0.webp",
+    category: "camas",
   },
 ]
 

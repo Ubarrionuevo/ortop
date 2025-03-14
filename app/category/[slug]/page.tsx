@@ -30,7 +30,18 @@ export default async function Page({ params }: { params: Promise<{ slug: string 
         {categoryProducts.length > 0 ? (
           <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-3">
             {categoryProducts.map((product) => (
-              <ProductCard key={product.id} product={product} />
+              <Link href={`/form/${product.id}`} className="overflow-hidden rounded-lg bg-white shadow-sm hover:shadow-md transition-all duration-300">
+                <div className="aspect-[4/3] relative">
+                  <img src={product.image || "/placeholder.svg"} alt={product.name} className="h-full w-full object-cover" />
+                </div>
+                <div className="p-3">
+                  <h3 className="font-medium text-sm text-zinc-900">{product.name}</h3>
+                  <p className="mt-1 text-xs text-zinc-600 line-clamp-2">{product.description}</p>
+                  <div className="mt-2 flex items-center justify-between">
+                    <span className="font-medium text-sm text-[#00a0e3]">${product.price.toFixed(2)}</span>
+                  </div>
+                </div>
+              </Link>
             ))}
           </div>
         ) : (
@@ -124,6 +135,12 @@ const categories: Category[] = [
       "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/web-web-market-0e860da99f331263a317370662945940-480-0-arVwwSqJQk5PEqGqk4wC7N3byM99jV.webp",
     slug: "muletas",
   },
+  {
+    id: 7,
+    name: "Camas",
+    image: "https://www.marketortopedia.com.ar/productos/alquiler-de-cama-ortopedica-en-mendoza/",
+    slug: "camas",
+  },
 ]
 
 const products: Product[] = [
@@ -197,5 +214,14 @@ const products: Product[] = [
       "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/web-web-market-0e860da99f331263a317370662945940-480-0-arVwwSqJQk5PEqGqk4wC7N3byM99jV.webp",
     category: "muletas",
   },
+  {
+    id: 9,
+    name: "Cama Ortopédica Manual",
+    description: "Cama ortopédica con ajuste manual de altura y posición, incluye colchón",
+    price: 25000,
+    image: "0",
+    category: "camas",
+  },
+  
 ]
 

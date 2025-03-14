@@ -7,7 +7,7 @@ import { Button } from "@/components/ui/button"
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
 import { useRouter } from "next/navigation"
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog"
-
+import myImage from '../public/cama-ortopedica.jpg';
 export default function Home() {
   const [isSearchOpen, setIsSearchOpen] = useState(false)
   const [searchQuery, setSearchQuery] = useState("")
@@ -54,7 +54,7 @@ export default function Home() {
     <div className="flex min-h-screen flex-col bg-white">
       {/* Header */}
       <header className="w-full border-b bg-white text-zinc-900">
-        <div className="container flex h-16 items-center justify-between">
+        <div className="container flex h-16 items-center justify-center">
           {/* Mobile Menu - Only visible on mobile */}
           <div className="lg:hidden">
             <Sheet>
@@ -111,28 +111,15 @@ export default function Home() {
           </div>
 
           {/* Logo */}
-          <Link href="/" className="flex items-center space-x-2">
-            <div className="flex items-center">
+          <Link href="/" className="flex items-center space-x-2 mr-auto">
+            <div className="flex items-center ml-6">
               <span className="font-bold text-xl text-zinc-900">MARKET</span>
               <span className="font-bold text-xl text-[#00a0e3]">ortopedia</span>
             </div>
           </Link>
 
           {/* Desktop Navigation - Only visible on desktop */}
-          <nav className="hidden lg:flex items-center space-x-6">
-            <Link href="#" className="text-zinc-600 hover:text-zinc-900 transition-colors">
-              Inicio
-            </Link>
-            <Link href="#" className="text-zinc-600 hover:text-zinc-900 transition-colors">
-              Mi Cuenta
-            </Link>
-            <Link href="#" className="text-zinc-600 hover:text-zinc-900 transition-colors">
-              Mis Pedidos
-            </Link>
-            <Link href="#" className="text-zinc-600 hover:text-zinc-900 transition-colors">
-              Contacto
-            </Link>
-          </nav>
+        
 
           {/* Search */}
           <div className="flex items-center space-x-2">
@@ -282,6 +269,12 @@ const categories: Category[] = [
     image:
       "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/web-web-market-0e860da99f331263a317370662945940-480-0-arVwwSqJQk5PEqGqk4wC7N3byM99jV.webp",
     slug: "muletas",
+  },
+  {
+    id: 7,
+    name: "Camas",
+    image: "/cama.webp",
+    slug: "camas",
   },
 ]
 
