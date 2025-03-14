@@ -70,7 +70,7 @@ export default function FormPage({ params }: { params: Promise<{ id: string }> }
   // Handle form submission
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
-    const phoneNumber = "+5492613601278" // Número de WhatsApp
+    const phoneNumber = "+5492613601278" // Número de WhatsApp actualizado
     const message = formatWhatsAppMessage()
     window.open(`https://wa.me/${phoneNumber}?text=${message}`, "_blank")
   }
@@ -202,7 +202,7 @@ export default function FormPage({ params }: { params: Promise<{ id: string }> }
             <p className="text-sm text-zinc-600">S: 9 a 12 hs</p>
           </div>
 
-          <Button type="submit" className="w-full bg-[#00a0e3] hover:bg-[#0088c2] text-white" onClick={() => window.location.href='https://wa.me/5492617153857'}>
+          <Button type="submit" className="w-full bg-[#00a0e3] hover:bg-[#0088c2] text-white" onClick={() => window.location.href='https://wa.me/+5492613601278'}>
             <Check className="mr-2 h-4 w-4" /> Enviar Solicitud por WhatsApp
           </Button>
         </form>
