@@ -1,0 +1,21 @@
+{
+  "name": "MarketOrtopedia",
+  "short_name": "MarketOrtopedia",
+  "description": "Alquiler de equipos ortopédicos en Mendoza",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#00a0e3",
+  "icons": [
+    {
+      "src": "/icon.png.webp",
+      "sizes": "192x192",
+      "type": "image/webp"
+    },
+    {
+      "src": "/apple-icon.png",
+      "sizes": "180x180",
+      "type": "image/png"
+    }
+  ]
+} 

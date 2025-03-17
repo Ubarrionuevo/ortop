@@ -124,7 +124,7 @@ export default function FormPage({ params }: { params: Promise<{ id: string }> }
           <Separator />
 
           <div className="space-y-4">
-            <h3 className="font-medium text-lg text-zinc-900"></h3>
+            <h3 className="font-medium text-lg text-zinc-900">Precio</h3>
             <div className="flex items-start space-x-2">
               <Checkbox
                 id="requirements"
@@ -136,7 +136,7 @@ export default function FormPage({ params }: { params: Promise<{ id: string }> }
                   htmlFor="requirements"
                   className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
                 >
-                  Consultar los requisitos para poder alquilar
+                  Por mensaje
                 </Label>
               </div>
             </div>

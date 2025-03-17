@@ -2,7 +2,6 @@ import type React from "react"
 import type { Metadata } from "next"
 import { Inter } from "next/font/google"
 import "./globals.css"
-import Head from "next/head"
 
 const inter = Inter({ subsets: ["latin"] })
 
@@ -12,6 +11,19 @@ export const metadata: Metadata = {
   icons: {
     icon: '/icon.png.webp',
     apple: '/apple-icon.png'
+  },
+  viewport: {
+    width: 'device-width',
+    initialScale: 1,
+    maximumScale: 1,
+    userScalable: false,
+  },
+  themeColor: '#ffffff',
+  manifest: '/manifest.json',
+  appleWebApp: {
+    capable: true,
+    statusBarStyle: 'default',
+    title: 'MarketOrtopedia'
   }
 }
 
@@ -22,10 +34,6 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="es">
-      <Head>
-        <title>MarketOrtopedia - Equipos Ortopedicos de Mendoz</title>
-        <meta name="description" content="MarketOrtopedia es una empresa dedicada al alquiler de equipos ortopedicos de Mendoza" />
-      </Head>
       <body className={inter.className}>{children}</body>
     </html>
   )

@@ -51,30 +51,30 @@ export default async function Page({ params }: { params: Promise<{ slug: string 
         </div>
 
         {categoryProducts.length > 0 ? (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-4 gap-6 lg:gap-8 max-w-7xl mx-auto">
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-2 max-w-7xl mx-auto">
             {categoryProducts.map((product) => (
               <Link 
                 key={product.id}
                 href={`/form/${product.id}`} 
-                className="group overflow-hidden rounded-lg bg-white shadow-sm hover:shadow-md transition-all duration-300"
+                className="group overflow-hidden rounded-sm bg-white shadow-sm hover:shadow-md transition-all duration-300"
               >
-                <div className="aspect-[4/3] relative overflow-hidden">
+                <div className="aspect-[1/1] relative overflow-hidden">
                   <img
                     src={product.image || "/placeholder.svg"}
                     alt={product.name}
                     className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
                   />
                 </div>
-                <div className="p-6">
-                  <h3 className="font-medium text-lg text-zinc-900 group-hover:text-[#00a0e3] transition-colors text-center">
+                <div className="p-1.5">
+                  <h3 className="font-medium text-[11px] text-zinc-900 group-hover:text-[#00a0e3] transition-colors text-center truncate">
                     {product.name}
                   </h3>
-                  <p className="mt-2 text-sm text-zinc-600 line-clamp-2 text-center">
+                  <p className="mt-0.5 text-[9px] text-zinc-600 line-clamp-1 text-center">
                     {product.description}
                   </p>
-                  <div className="mt-6 flex flex-col items-center gap-3">
-                    <span className="font-medium text-xl text-[#00a0e3]">${product.price.toFixed(2)}</span>
-                    <span className="w-full inline-flex items-center justify-center rounded-full bg-[#00a0e3] px-6 py-2 text-base font-medium text-white group-hover:bg-[#0088c2] transition-colors">
+                  <div className="mt-1 flex flex-col items-center gap-1">
+                    <span className="font-medium text-xs text-[#00a0e3]">${product.price.toFixed(2)}</span>
+                    <span className="w-full inline-flex items-center justify-center rounded-sm bg-[#00a0e3] px-1.5 py-0.5 text-[10px] font-medium text-white group-hover:bg-[#0088c2] transition-colors">
                       Alquilar
                     </span>
                   </div>
