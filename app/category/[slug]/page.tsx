@@ -1,5 +1,44 @@
 import Link from "next/link"
 import { ArrowLeft, Clock, MapPin, Phone } from "lucide-react"
+import { Metadata } from "next"
+import Script from 'next/script'
+
+// Generar metadatos dinámicos para cada categoría
+export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
+  const category = categories.find((c) => c.slug === params.slug)
+  
+  if (!category) {
+    return {
+      title: "Categoría no encontrada | Ortopedia en Mendoza",
+      description: "La categoría que buscas no está disponible. Explora nuestro catálogo de equipos ortopédicos en Mendoza."
+    }
+  }
+
+  return {
+    title: `${category.name} en Mendoza | Alquiler de ${category.name} - Ortopedia`,
+    description: `Alquiler de ${category.name} en Mendoza. ${category.description} Servicio profesional de ortopedia en Ciudad de Mendoza. ¡Consulta disponibilidad!`,
+    openGraph: {
+      title: `${category.name} en Mendoza | MarketOrtopedia`,
+      description: `Alquiler de ${category.name} en Mendoza. ${category.description} La mejor ortopedia en Ciudad de Mendoza.`,
+      url: `https://marketortopedia.com.ar/category/${params.slug}`,
+      images: [{
+        url: category.image,
+        width: 800,
+        height: 600,
+        alt: `${category.name} en alquiler - MarketOrtopedia`
+      }],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: `${category.name} en Mendoza | MarketOrtopedia`,
+      description: `Alquiler de ${category.name} en Mendoza. ${category.description} La mejor ortopedia en Ciudad de Mendoza.`,
+      images: [category.image],
+    },
+    alternates: {
+      canonical: `https://marketortopedia.com.ar/category/${params.slug}`,
+    },
+  }
+}
 
 export default async function Page({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
@@ -14,8 +53,37 @@ export default async function Page({ params }: { params: Promise<{ slug: string 
   // Get products for this category
   const categoryProducts = products.filter((product) => product.category === slug)
 
+  // Schema.org data
+  const schemaData = {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    "itemListElement": categoryProducts.map((product, index) => ({
+      "@type": "Product",
+      "position": index + 1,
+      "name": product.name,
+      "description": product.description,
+      "image": product.image,
+      "offers": {
+        "@type": "Offer",
+        "price": product.price,
+        "priceCurrency": "ARS",
+        "availability": "https://schema.org/InStock",
+        "businessFunction": "LeaseOut"
+      },
+      "brand": {
+        "@type": "Brand",
+        "name": "MarketOrtopedia"
+      }
+    }))
+  }
+
   return (
     <div className="min-h-screen bg-zinc-50">
+      <Script
+        id="schema-data"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaData) }}
+      />
       {/* Header */}
       <header className="sticky top-0 z-40 w-full border-b bg-white/95 backdrop-blur supports-[backdrop-filter]:bg-white/80">
         <div className="container mx-auto flex h-16 items-center justify-between px-4">
@@ -132,6 +200,7 @@ interface Category {
   name: string
   image: string
   slug: string
+  description: string
 }
 
 interface Product {
@@ -150,18 +219,21 @@ const categories: Category[] = [
     image:
       "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/silla%20plegable%20de%20ruedas%202-lnzKWIDuIiFeXfv11Ulmi4l5B7lX6N.webp",
     slug: "sillas-de-ruedas",
+    description: "Sillas de ruedas plegables con estructura de aluminio y tapizado resistente",
   },
   {
     id: 2,
     name: "Andadores",
     image: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/andador2-z9Ve66NV2ieVOfiaBGnvjcQBTHZCuy.webp",
     slug: "andadores",
+    description: "Andadores de aluminio ajustables y plegables",
   },
   {
     id: 3,
     name: "Férulas",
     image: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/ferula%202-EQJBuk2RvbwwkQr5vFpAfTURzlS730.webp",
     slug: "ferulas",
+    description: "Botas ortopédicas para inmovilización y rehabilitación",
   },
   {
     id: 4,
@@ -169,6 +241,7 @@ const categories: Category[] = [
     image:
       "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/1-5-aa8896f0afa2ce38ad17369552578133-480-0-WfQYqc03KsjDfsAIrH80nyVbToPXGg.webp",
     slug: "inodoros-portatiles",
+    description: "Sillas sanitarias ajustables con recipiente extraíble",
   },
   {
     id: 5,
@@ -176,6 +249,7 @@ const categories: Category[] = [
     image:
       "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/web-web-market-f12d3bfdd4a250a80117370692608748-480-0-ilnZAJDraPBEcfraMvgMj9p9nAingz.webp",
     slug: "gruas",
+    description: "Grúas para traslado de pacientes con arnés incluido",
   },
   {
     id: 6,
@@ -183,12 +257,14 @@ const categories: Category[] = [
     image:
       "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/web-web-market-0e860da99f331263a317370662945940-480-0-arVwwSqJQk5PEqGqk4wC7N3byM99jV.webp",
     slug: "muletas",
+    description: "Par de muletas de aluminio con altura ajustable",
   },
   {
     id: 7,
     name: "Camas",
     image: "https://www.marketortopedia.com.ar/productos/alquiler-de-cama-ortopedica-en-mendoza/",
     slug: "camas",
+    description: "Cama ortopédica con ajuste manual de altura y posición, incluye colchón",
   },
 ]
 
