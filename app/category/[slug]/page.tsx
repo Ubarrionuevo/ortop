@@ -1,5 +1,5 @@
 import Link from "next/link"
-import { ArrowLeft } from "lucide-react"
+import { ArrowLeft, Clock, MapPin, Phone } from "lucide-react"
 
 export default async function Page({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
@@ -16,29 +16,67 @@ export default async function Page({ params }: { params: Promise<{ slug: string 
 
   return (
     <div className="min-h-screen bg-zinc-50">
+      {/* Header */}
       <header className="sticky top-0 z-40 w-full border-b bg-white/95 backdrop-blur supports-[backdrop-filter]:bg-white/80">
-        <div className="container flex h-14 items-center">
-          <Link href="/" className="flex items-center space-x-2 ml-7">
-            <ArrowLeft className="h-5 w-5 text-zinc-600" />
-          </Link>
-          <h1 className="flex-1 text-center font-bold text-xl text-zinc-900 mx-auto max-w-lg mr-4">{category.name}</h1>
-          <div className="w-10"></div> {/* Spacer for balance */}
+        <div className="container mx-auto flex h-16 items-center justify-between px-4">
+          <div className="flex items-center">
+            <Link href="/" className="flex items-center space-x-2">
+              <ArrowLeft className="h-5 w-5 text-zinc-600" />
+              <span className="text-sm text-zinc-600 hidden lg:inline-block">Volver al inicio</span>
+            </Link>
+          </div>
+          <h1 className="absolute left-1/2 transform -translate-x-1/2 font-bold text-xl lg:static lg:transform-none lg:text-2xl text-zinc-900">{category.name}</h1>
+          {/* Desktop Navigation */}
+          <nav className="hidden lg:flex items-center space-x-8">
+            <div className="flex items-center space-x-6">
+              <div className="flex items-center space-x-2 text-zinc-600">
+                <MapPin className="h-4 w-4 text-[#00a0e3]" />
+                <span className="text-sm">Federico Moreno 950, Ciudad</span>
+              </div>
+              <div className="flex items-center space-x-2 text-zinc-600">
+                <Phone className="h-4 w-4 text-[#00a0e3]" />
+                <span className="text-sm">(261) 123-4567</span>
+              </div>
+            </div>
+          </nav>
         </div>
       </header>
 
-      <main className="container px-4 py-4">
+      <main className="container mx-auto px-4 py-8">
+        {/* Category Description - Desktop Only */}
+        <div className="hidden lg:block mb-12 max-w-4xl mx-auto text-center">
+          <p className="text-zinc-600">
+            Encuentra los mejores productos ortopédicos para alquiler. Calidad y confianza garantizada.
+          </p>
+        </div>
+
         {categoryProducts.length > 0 ? (
-          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-3">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-4 gap-6 lg:gap-8 max-w-7xl mx-auto">
             {categoryProducts.map((product) => (
-              <Link href={`/form/${product.id}`} className="overflow-hidden rounded-lg bg-white shadow-sm hover:shadow-md transition-all duration-300">
-                <div className="aspect-[4/3] relative">
-                  <img src={product.image || "/placeholder.svg"} alt={product.name} className="h-full w-full object-cover" />
+              <Link 
+                key={product.id}
+                href={`/form/${product.id}`} 
+                className="group overflow-hidden rounded-lg bg-white shadow-sm hover:shadow-md transition-all duration-300"
+              >
+                <div className="aspect-[4/3] relative overflow-hidden">
+                  <img
+                    src={product.image || "/placeholder.svg"}
+                    alt={product.name}
+                    className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
+                  />
                 </div>
-                <div className="p-3">
-                  <h3 className="font-medium text-sm text-zinc-900">{product.name}</h3>
-                  <p className="mt-1 text-xs text-zinc-600 line-clamp-2">{product.description}</p>
-                  <div className="mt-2 flex items-center justify-between">
-                    <span className="font-medium text-sm text-[#00a0e3]">${product.price.toFixed(2)}</span>
+                <div className="p-6">
+                  <h3 className="font-medium text-lg text-zinc-900 group-hover:text-[#00a0e3] transition-colors text-center">
+                    {product.name}
+                  </h3>
+                  <p className="mt-2 text-sm text-zinc-600 line-clamp-2 text-center">
+                    {product.description}
+                  </p>
+                  <div className="mt-6 flex flex-col items-center gap-3">
+                    <span className="font-medium text-xl text-[#00a0e3]">${product.price.toFixed(2)}</span>
+                    <span className="w-full inline-flex items-center justify-center rounded-full bg-[#00a0e3] px-6 py-2 text-base font-medium text-white group-hover:bg-[#0088c2] transition-colors">
+                      Alquilar
+                    </span>
                   </div>
                 </div>
               </Link>
@@ -50,6 +88,17 @@ export default async function Page({ params }: { params: Promise<{ slug: string 
           </div>
         )}
       </main>
+
+      {/* Desktop Footer */}
+      <footer className="hidden lg:block bg-white border-t py-8 mt-12">
+        <div className="container mx-auto px-4">
+          <div className="max-w-4xl mx-auto text-center">
+            <p className="text-sm text-zinc-600">
+              ¿Necesitas ayuda para elegir el producto adecuado? Contáctanos al (261) 123-4567
+            </p>
+          </div>
+        </div>
+      </footer>
     </div>
   )
 }

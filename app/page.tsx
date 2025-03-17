@@ -7,7 +7,9 @@ import { Button } from "@/components/ui/button"
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
 import { useRouter } from "next/navigation"
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog"
+import Image from "next/image"
 import myImage from '../public/cama-ortopedica.jpg';
+
 export default function Home() {
   const [isSearchOpen, setIsSearchOpen] = useState(false)
   const [searchQuery, setSearchQuery] = useState("")
@@ -54,7 +56,7 @@ export default function Home() {
     <div className="flex min-h-screen flex-col bg-white">
       {/* Header */}
       <header className="w-full border-b bg-white text-zinc-900">
-        <div className="container flex h-16 items-center justify-center">
+        <div className="container mx-auto flex h-16 items-center justify-between px-4">
           {/* Mobile Menu - Only visible on mobile */}
           <div className="lg:hidden">
             <Sheet>
@@ -111,18 +113,24 @@ export default function Home() {
           </div>
 
           {/* Logo */}
-          <Link href="/" className="flex items-center space-x-2 mr-auto">
-            <div className="flex items-center ml-6">
+          <Link href="/" className="flex items-center">
+            <div className="flex items-center">
               <span className="font-bold text-xl text-zinc-900">MARKET</span>
               <span className="font-bold text-xl text-[#00a0e3]">ortopedia</span>
             </div>
           </Link>
 
           {/* Desktop Navigation - Only visible on desktop */}
-        
+          <nav className="hidden lg:flex items-center justify-center space-x-12">
+            <div className="flex items-center space-x-12">
+             
+             
+              
+            </div>
+          </nav>
 
           {/* Search */}
-          <div className="flex items-center space-x-2">
+          <div className="flex items-center">
             {isSearchOpen ? (
               <div className="relative flex items-center">
                 <input
@@ -169,18 +177,18 @@ export default function Home() {
       <Dialog open={isHoursModalOpen} onOpenChange={setIsHoursModalOpen}>
         <DialogTrigger asChild>
           <div className="bg-blue-50 text-blue-900 cursor-pointer hover:bg-blue-100 transition-colors">
-            <div className="container py-2 px-4 flex items-center justify-center text-center">
-              <Clock className="h-4 w-4 flex-shrink-0 mr-2" />
+            <div className="container mx-auto max-w-4xl py-2 px-4 flex items-center justify-center text-center">
+              <Clock className="h-5 w-5 flex-shrink-0 mr-3 text-[#00a0e3]" />
               <div>
-                <p className="font-medium">En este momento estamos cerrados</p>
-                <p className="text-sm">Hacé click para consultar nuestros horarios</p>
+                <p className="font-medium text-lg">En este momento estamos cerrados</p>
+                <p className="text-sm text-blue-700">Hacé click para consultar nuestros horarios</p>
               </div>
             </div>
           </div>
         </DialogTrigger>
         <DialogContent className="sm:max-w-md">
           <DialogHeader>
-            <DialogTitle className="text-center">Horarios de Atención</DialogTitle>
+            <DialogTitle className="text-center text-xl font-bold mb-4">Horarios de Atención</DialogTitle>
           </DialogHeader>
           <div className="space-y-4 py-4">
             <div className="grid grid-cols-2 gap-4 text-center">
@@ -207,10 +215,15 @@ export default function Home() {
 
       <main className="flex-1 bg-zinc-50">
         {/* Categories */}
-        <section className="py-6">
-          <div className="container px-4">
-            <h2 className="text-xl font-bold mb-4 text-zinc-900">Categorías</h2>
-            <div className="flex flex-col space-y-3 max-w-3xl mx-auto">
+        <section className="py-12">
+          <div className="container mx-auto px-4">
+            <h2 className="text-3xl font-bold mb-12 text-zinc-900 text-center">Nuestras Categorías</h2>
+            <div className="hidden lg:grid grid-cols-3 gap-8 max-w-6xl mx-auto">
+              {categories.map((category) => (
+                <CategoryCard key={category.id} category={category} />
+              ))}
+            </div>
+            <div className="lg:hidden flex flex-col space-y-3 max-w-3xl mx-auto">
               {categories.map((category) => (
                 <CategoryCard key={category.id} category={category} />
               ))}
@@ -218,6 +231,51 @@ export default function Home() {
           </div>
         </section>
       </main>
+
+      {/* Desktop Footer - Only visible on desktop */}
+      <footer className="hidden lg:block bg-white border-t py-12">
+        <div className="container mx-auto px-4">
+          <div className="grid grid-cols-3 gap-12 max-w-6xl mx-auto">
+            <div>
+              <h3 className="font-bold text-lg mb-4 text-zinc-900">MARKET ortopedia</h3>
+              <p className="text-sm text-zinc-600">
+                Especialistas en alquiler de equipamiento médico y ortopédico de alta calidad.
+              </p>
+            </div>
+            <div>
+              <h3 className="font-bold text-lg mb-4 text-zinc-900">Contacto</h3>
+              <div className="space-y-2">
+                <p className="text-sm text-zinc-600 flex items-center">
+                  <MapPin className="h-4 w-4 mr-2 text-[#00a0e3]" />
+                  Federico Moreno 950, Ciudad, Mendoza
+                </p>
+                <p className="text-sm text-zinc-600 flex items-center">
+                  <Phone className="h-4 w-4 mr-2 text-[#00a0e3]" />
+                  (261) 123-4567
+                </p>
+                <p className="text-sm text-zinc-600 flex items-center">
+                  <Clock className="h-4 w-4 mr-2 text-[#00a0e3]" />
+                  L a V: 9 a 13 y 16 a 18 hs | S: 9 a 12 hs
+                </p>
+              </div>
+            </div>
+            <div>
+              <h3 className="font-bold text-lg mb-4 text-zinc-900">¿Tenés un negocio?</h3>
+              <p className="text-sm text-zinc-600 mb-4">
+                Creamos catálogos personalizados para tu negocio.
+              </p>
+              <a
+                href="https://wa.me/5491112345678?text=Hola,%20quiero%20un%20catálogo%20como%20este%20para%20mi%20negocio"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-block bg-[#00a0e3] hover:bg-[#0088c2] text-white text-sm px-6 py-2 rounded-md transition-colors"
+              >
+                Contactanos
+              </a>
+            </div>
+          </div>
+        </div>
+      </footer>
     </div>
   )
 }

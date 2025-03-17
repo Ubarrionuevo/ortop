@@ -61,7 +61,7 @@ export default function FormPage({ params }: { params: Promise<{ id: string }> }
 
   // Format WhatsApp message
   const formatWhatsAppMessage = () => {
-    const message = `Solicitud de Alquiler - MARKET ortopedia:\n\nProducto: ${product.name}\nDuración: 30 días\nPrecio: $${product.price.toFixed(2)}\n\nForma de Alquiler: ${formData.rentalPeriod === "30dias" ? "Alquiler 30 días" : ""}\n\nAcepto Requisitos: ${formData.acceptRequirements ? "Consultar los requisitos para poder alquilar" : ""}\n\nMétodo de Pago: ${formData.paymentMethod === "transferencia" ? "Transferencia" : "Efectivo"}\n\nMétodo de Entrega: ${formData.deliveryMethod === "presencial" ? "Presencial" : "A convenir"}\n\n${formData.additionalInfo ? `Información Adicional: ${formData.additionalInfo}` : ""}`;
+    const message = `Solicitud de Alquiler - MARKET ortopedia:\n\nProducto: ${product.name}\nDuración: 30 días\nPrecio: $${product.price.toFixed(2)}\n\nForma de Alquiler: ${formData.rentalPeriod === "30dias" ? "Alquiler 30 días" : ""}\n\n ${formData.acceptRequirements ? "Consultar los requisitos para poder alquilar" : ""}\n\nMétodo de Pago: ${formData.paymentMethod === "transferencia" ? "Transferencia" : "Efectivo"}\n\nMétodo de Entrega: ${formData.deliveryMethod === "presencial" ? "Presencial" : "A convenir"}\n\n${formData.additionalInfo ? `Información Adicional: ${formData.additionalInfo}` : ""}`;
 
     console.log('Mensaje de WhatsApp:', decodeURIComponent(message));
     return encodeURIComponent(message);
@@ -124,7 +124,7 @@ export default function FormPage({ params }: { params: Promise<{ id: string }> }
           <Separator />
 
           <div className="space-y-4">
-            <h3 className="font-medium text-lg text-zinc-900">Acepto</h3>
+            <h3 className="font-medium text-lg text-zinc-900"></h3>
             <div className="flex items-start space-x-2">
               <Checkbox
                 id="requirements"
