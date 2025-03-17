@@ -202,7 +202,7 @@ export default function FormPage({ params }: { params: Promise<{ id: string }> }
             <p className="text-sm text-zinc-600">S: 9 a 12 hs</p>
           </div>
 
-          <Button type="submit" className="w-full bg-[#00a0e3] hover:bg-[#0088c2] text-white" onClick={() => window.location.href='https://wa.me/+5492613601278'}>
+          <Button type="submit" className="w-full bg-[#00a0e3] hover:bg-[#0088c2] text-white">
             <Check className="mr-2 h-4 w-4" /> Enviar Solicitud por WhatsApp
           </Button>
         </form>
