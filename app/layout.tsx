@@ -7,8 +7,12 @@ import Head from "next/head"
 const inter = Inter({ subsets: ["latin"] })
 
 export const metadata: Metadata = {
-  title: "MarketOrtopedia - Equipos Ortopedicos de Mendoza",
-  description: "MarketOrtopedia es una empresa dedicada al alquiler de equipos ortopedicos de Mendoza, Argentina.",
+  title: "MarketOrtopedia - Equipos Ortopédicos de Mendoza",
+  description: "MarketOrtopedia es una empresa dedicada al alquiler de equipos ortopédicos de Mendoza, Argentina.",
+  icons: {
+    icon: '/icon.png.webp',
+    apple: '/apple-icon.png'
+  }
 }
 
 export default function RootLayout({
