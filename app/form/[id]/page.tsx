@@ -70,7 +70,7 @@ export default function FormPage({ params }: { params: Promise<{ id: string }> }
   // Handle form submission
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
-    const phoneNumber = "5492613601278" // Número de WhatsApp actualizado
+    const phoneNumber = "+5492617153857" // Número de WhatsApp actualizado
     const message = formatWhatsAppMessage()
     window.open(`whatsapp://send?phone=${phoneNumber}&text=${message}`, "_blank")
   }

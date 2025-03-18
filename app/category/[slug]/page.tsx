@@ -66,8 +66,6 @@ export default async function Page({ params }: { params: Promise<{ slug: string 
       "image": product.image,
       "offers": {
         "@type": "Offer",
-        "price": product.price,
-        "priceCurrency": "ARS",
         "availability": "https://schema.org/InStock",
         "businessFunction": "LeaseOut"
       },
@@ -144,8 +142,7 @@ export default async function Page({ params }: { params: Promise<{ slug: string 
                   <p className="mt-0.5 text-[9px] text-zinc-600 line-clamp-1 text-center">
                     {product.description}
                   </p>
-                  <div className="mt-1 flex flex-col items-center gap-1">
-                    <span className="font-medium text-xs text-[#00a0e3]">${product.price.toFixed(2)}</span>
+                  <div className="mt-1 flex flex-col items-center">
                     <span className="w-full inline-flex items-center justify-center rounded-sm bg-[#00a0e3] px-1.5 py-0.5 text-[10px] font-medium text-white group-hover:bg-[#0088c2] transition-colors">
                       Alquilar
                     </span>
@@ -184,8 +181,7 @@ function ProductCard({ product }: { product: Product }) {
       <div className="p-3">
         <h3 className="font-medium text-sm text-zinc-900">{product.name}</h3>
         <p className="mt-1 text-xs text-zinc-600 line-clamp-2">{product.description}</p>
-        <div className="mt-2 flex items-center justify-between">
-          <span className="font-medium text-sm text-[#00a0e3]">${product.price.toFixed(2)}</span>
+        <div className="mt-2 flex items-center justify-end">
           <Link
             href={`/form/${product.id}`}
             className="rounded-full bg-[#00a0e3] px-3 py-1 text-xs font-medium text-white hover:bg-[#0088c2] transition-colors"
@@ -211,7 +207,6 @@ interface Product {
   id: number
   name: string
   description: string
-  price: number
   image: string
   category: string
 }
@@ -277,25 +272,20 @@ const products: Product[] = [
     id: 1,
     name: "Silla de Ruedas Estándar",
     description: "Silla de ruedas plegable con estructura de aluminio y tapizado resistente",
-    price: 5000,
-    image:
-      "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/silla%20plegable%20de%20ruedas%202-lnzKWIDuIiFeXfv11Ulmi4l5B7lX6N.webp",
+    image: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/silla%20plegable%20de%20ruedas%202-lnzKWIDuIiFeXfv11Ulmi4l5B7lX6N.webp",
     category: "sillas-de-ruedas",
   },
   {
     id: 2,
     name: "Silla de Ruedas de Transporte",
     description: "Silla de ruedas ligera ideal para transporte ocasional",
-    price: 4500,
-    image:
-      "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/silla%20de%20ruedas%20plegable%201-7bU1afGNGstQxv6Ake6B203I8dWIX1.webp",
+    image: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/silla%20de%20ruedas%20plegable%201-7bU1afGNGstQxv6Ake6B203I8dWIX1.webp",
     category: "sillas-de-ruedas",
   },
   {
     id: 3,
     name: "Andador Plegable",
     description: "Andador de aluminio ajustable y plegable",
-    price: 3000,
     image: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/andador2-z9Ve66NV2ieVOfiaBGnvjcQBTHZCuy.webp",
     category: "andadores",
   },
@@ -303,16 +293,13 @@ const products: Product[] = [
     id: 4,
     name: "Andador con Ruedas",
     description: "Andador con ruedas delanteras y tacos antideslizantes",
-    price: 3500,
-    image:
-      "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/sin-titulo-1080-x-1400-px-1-6868d4e081dfc1112917324276741159-480-0-3YE866ReOTSXwhQJZCHVoALCCAAKYD.webp",
+    image: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/sin-titulo-1080-x-1400-px-1-6868d4e081dfc1112917324276741159-480-0-3YE866ReOTSXwhQJZCHVoALCCAAKYD.webp",
     category: "andadores",
   },
   {
     id: 5,
     name: "Férula Walker",
     description: "Bota ortopédica para inmovilización y rehabilitación",
-    price: 2500,
     image: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/ferula%202-EQJBuk2RvbwwkQr5vFpAfTURzlS730.webp",
     category: "ferulas",
   },
@@ -320,37 +307,29 @@ const products: Product[] = [
     id: 6,
     name: "Inodoro Portátil",
     description: "Silla sanitaria ajustable con recipiente extraíble",
-    price: 4000,
-    image:
-      "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/1-5-aa8896f0afa2ce38ad17369552578133-480-0-WfQYqc03KsjDfsAIrH80nyVbToPXGg.webp",
+    image: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/1-5-aa8896f0afa2ce38ad17369552578133-480-0-WfQYqc03KsjDfsAIrH80nyVbToPXGg.webp",
     category: "inodoros-portatiles",
   },
   {
     id: 7,
     name: "Grúa de Traslado",
     description: "Grúa para traslado de pacientes con arnés incluido",
-    price: 15000,
-    image:
-      "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/web-web-market-f12d3bfdd4a250a80117370692608748-480-0-ilnZAJDraPBEcfraMvgMj9p9nAingz.webp",
+    image: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/web-web-market-f12d3bfdd4a250a80117370692608748-480-0-ilnZAJDraPBEcfraMvgMj9p9nAingz.webp",
     category: "gruas",
   },
   {
     id: 8,
     name: "Muletas Regulables",
     description: "Par de muletas de aluminio con altura ajustable",
-    price: 2000,
-    image:
-      "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/web-web-market-0e860da99f331263a317370662945940-480-0-arVwwSqJQk5PEqGqk4wC7N3byM99jV.webp",
+    image: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/web-web-market-0e860da99f331263a317370662945940-480-0-arVwwSqJQk5PEqGqk4wC7N3byM99jV.webp",
     category: "muletas",
   },
   {
     id: 9,
     name: "Cama Ortopédica Manual",
     description: "Cama ortopédica con ajuste manual de altura y posición, incluye colchón",
-    price: 25000,
-    image: "/cama.webp",
+    image: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/cama-ortopedica-manual.webp",
     category: "camas",
   },
-  
 ]
 
