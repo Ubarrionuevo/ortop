@@ -2,6 +2,7 @@ import Link from "next/link"
 import { ArrowLeft, Clock, MapPin, Phone } from "lucide-react"
 import { Metadata } from "next"
 import Script from 'next/script'
+import Image from 'next/image'
 
 // Generar metadatos dinámicos para cada categoría
 export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
@@ -127,10 +128,13 @@ export default async function Page({ params }: { params: Promise<{ slug: string 
                 className="group overflow-hidden rounded-sm bg-white shadow-sm hover:shadow-md transition-all duration-300"
               >
                 <div className="aspect-[1/1] relative overflow-hidden">
-                  <img
-                    src={product.image || "/placeholder.svg"}
+                  <Image
+                    src={product.image || "/cama.webp"}
                     alt={product.name}
-                    className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
+                    fill
+                    sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 20vw"
+                    className="object-cover transition-transform duration-300 group-hover:scale-105"
+                    priority={product.id === 9 || product.id === 10}
                   />
                 </div>
                 <div className="p-1.5">
@@ -262,7 +266,7 @@ const categories: Category[] = [
   {
     id: 7,
     name: "Camas",
-    image: "https://www.marketortopedia.com.ar/productos/alquiler-de-cama-ortopedica-en-mendoza/",
+    image: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/cama-ortopedica-manual.webp",
     slug: "camas",
     description: "Cama ortopédica con ajuste manual de altura y posición, incluye colchón",
   },

@@ -88,17 +88,19 @@ export default function FormPage({ params }: { params: Promise<{ id: string }> }
       </header>
 
       <main className="container px-4 py-6 max-w-2xl mx-auto">
-        <div className="bg-white rounded-lg p-4 mb-6 flex items-center shadow-sm">
-          <div className="w-16 h-16 mr-4">
+        <div className="bg-white rounded-lg p-4 mb-6 flex flex-col sm:flex-row items-center gap-4 shadow-sm">
+          <div className="relative w-24 h-24 flex-shrink-0">
             <Image
-              src={product.image || "/placeholder.svg"}
+              src={product.image}
               alt={product.name}
-              width={500}
-              height={500}
-              className="w-full h-full object-cover rounded-md"
+              fill
+              style={{ objectFit: 'contain' }}
+              sizes="96px"
+              priority
+              className="rounded-md"
             />
           </div>
-          <div>
+          <div className="flex-1 text-center sm:text-left">
             <h2 className="font-bold text-lg text-zinc-900">{product.name}</h2>
             <p className="text-zinc-600 text-sm">{product.description}</p>
             <p className="font-bold text-[#00a0e3] mt-1">${product.price.toFixed(2)}</p>
@@ -288,7 +290,7 @@ const products: Product[] = [
     name: "Cama Ortopédica Manual",
     description: "Cama ortopédica con ajuste manual de altura y posición, incluye colchón",
     price: 25000,
-    image: "https://dcdn-us.mitiendanube.com/stores/005/403/653/products/web-web-market-6-bb319af72d3a87f45817370677591416-480-0.webp",
+    image: "/cama.webp",
     category: "camas",
   },
   {
@@ -296,7 +298,7 @@ const products: Product[] = [
     name: "Cama Ortopédica Eléctrica",
     description: "Cama ortopédica con control eléctrico para ajuste de altura y posición, incluye colchón premium",
     price: 45000,
-    image: "https://dcdn-us.mitiendanube.com/stores/005/403/653/products/web-web-market-6-bb319af72d3a87f45817370677591416-480-0.webp",
+    image: "/cama.webp",
     category: "camas",
   },
 ]

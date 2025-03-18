@@ -67,8 +67,7 @@ export const metadata: Metadata = {
     telephone: false,
   },
   icons: {
-    icon: '/icon.png.webp',
-    apple: '/apple-icon.png'
+    icon: '/favicon.ico',
   },
   viewport: {
     width: 'device-width',
