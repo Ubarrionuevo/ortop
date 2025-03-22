@@ -14,6 +14,8 @@ import Image from "next/image"
 import { baseProducts } from "@/app/category/[slug]/data"
 import { subscribeToPrice } from "@/lib/firebase"
 import { productIdMap } from "@/app/category/[slug]/data"
+import { usePreviewMode } from "@/lib/hooks/usePreviewMode"
+import { PreviewOrderDialog } from "@/components/PreviewOrderDialog"
 
 interface Product {
   id: number;
@@ -26,6 +28,8 @@ interface Product {
 export default function FormPage({ params }: { params: Promise<{ id: string }> }) {
   const [product, setProduct] = useState<Product | null>(null);
   const [price, setPrice] = useState<number>(0);
+  const [isPreviewDialogOpen, setIsPreviewDialogOpen] = useState(false);
+  const isPreviewMode = usePreviewMode();
   const [formData, setFormData] = useState({
     rentalPeriod: "30dias",
     acceptRequirements: true,
@@ -82,8 +86,14 @@ export default function FormPage({ params }: { params: Promise<{ id: string }> }
   // Handle form submission
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
-    const phoneNumber = "+5492617153857" // Número de WhatsApp actualizado
     const message = formatWhatsAppMessage()
+
+    if (isPreviewMode) {
+      setIsPreviewDialogOpen(true)
+      return
+    }
+
+    const phoneNumber = "+5492617153857"
     window.open(`whatsapp://send?phone=${phoneNumber}&text=${message}`, "_blank")
   }
 
@@ -221,6 +231,12 @@ export default function FormPage({ params }: { params: Promise<{ id: string }> }
           </Button>
         </form>
       </main>
+
+      <PreviewOrderDialog 
+        isOpen={isPreviewDialogOpen}
+        onClose={() => setIsPreviewDialogOpen(false)}
+        message={formatWhatsAppMessage()}
+      />
     </div>
   )
 }

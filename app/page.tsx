@@ -9,12 +9,16 @@ import { useRouter } from "next/navigation"
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog"
 import Image from "next/image"
 import myImage from '../public/cama-ortopedica.jpg';
+import { usePreviewMode } from "@/lib/hooks/usePreviewMode"
+import { PreviewOrderDialog } from "@/components/PreviewOrderDialog"
 
 export default function Home() {
   const [isSearchOpen, setIsSearchOpen] = useState(false)
   const [searchQuery, setSearchQuery] = useState("")
   const [isHoursModalOpen, setIsHoursModalOpen] = useState(false)
   const [isOpen, setIsOpen] = useState(false)
+  const [isPreviewDialogOpen, setIsPreviewDialogOpen] = useState(false)
+  const isPreviewMode = usePreviewMode()
   const router = useRouter()
 
   // Función para verificar si el local está abierto
@@ -97,6 +101,15 @@ export default function Home() {
     }
   }, [])
 
+  const handleContactClick = (e: React.MouseEvent) => {
+    e.preventDefault()
+    if (isPreviewMode) {
+      setIsPreviewDialogOpen(true)
+      return
+    }
+    window.open("https://wa.me/5492617153857?text=Hola,%20quiero%20un%20catálogo%20como%20este%20para%20mi%20negocio", "_blank")
+  }
+
   return (
     <div className="flex min-h-screen flex-col bg-white">
       {/* Header */}
@@ -144,9 +157,8 @@ export default function Home() {
 
                   <div className="mt-6 pt-6 border-t border-zinc-200">
                     <a
-                      href="https://wa.me/5492617153857?text=Hola,%20quiero%20un%20catálogo%20como%20este%20para%20mi%20negocio"
-                      target="_blank"
-                      rel="noopener noreferrer"
+                      href="#"
+                      onClick={handleContactClick}
                       className="block w-full py-3 px-4 bg-[#00a0e3] hover:bg-[#0088c2] text-white text-center font-medium rounded-md transition-colors"
                     >
                       Quiero un catálogo como este para mi negocio
@@ -314,9 +326,8 @@ export default function Home() {
                 Creamos catálogos personalizados para tu negocio.
               </p>
               <a
-                href="https://wa.me/5492617153857?text=Hola,%20quiero%20un%20catálogo%20como%20este%20para%20mi%20negocio"
-                target="_blank"
-                rel="noopener noreferrer"
+                href="#"
+                onClick={handleContactClick}
                 className="inline-block bg-[#00a0e3] hover:bg-[#0088c2] text-white text-sm px-6 py-2 rounded-md transition-colors"
               >
                 Contactanos
@@ -325,6 +336,13 @@ export default function Home() {
           </div>
         </div>
       </footer>
+
+      {/* Preview Dialog */}
+      <PreviewOrderDialog 
+        isOpen={isPreviewDialogOpen}
+        onClose={() => setIsPreviewDialogOpen(false)}
+        message="Hola, quiero un catálogo como este para mi negocio"
+      />
     </div>
   )
 }
