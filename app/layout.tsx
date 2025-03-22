@@ -3,6 +3,7 @@ import type { Metadata } from "next"
 import { Inter } from "next/font/google"
 import "./globals.css"
 import Script from 'next/script'
+import Link from 'next/link'
 
 const inter = Inter({ subsets: ["latin"] })
 
@@ -135,7 +136,26 @@ export default function RootLayout({
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }}
         />
+        
         {children}
+        
+        <footer className="bg-gray-100 py-4">
+          <div className="container mx-auto px-4">
+            <div className="flex flex-col items-center justify-center space-y-2">
+              <div className="flex items-center space-x-4">
+                <Link 
+                  href="/admin"
+                  className="text-sm text-[#00a0e3] hover:text-[#0088c2] transition-colors duration-200"
+                >
+                  Panel de Administración
+                </Link>
+              </div>
+              <p className="text-sm text-gray-600">
+                © 2024 MarketOrtopedia. Todos los derechos reservados.
+              </p>
+            </div>
+          </div>
+        </footer>
       </body>
     </html>
   )

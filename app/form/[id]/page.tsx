@@ -1,7 +1,6 @@
 "use client"
 
 import type React from "react"
-
 import { useState, useEffect } from "react"
 import Link from "next/link"
 import { ArrowLeft, Check } from "lucide-react"
@@ -12,18 +11,21 @@ import { Label } from "@/components/ui/label"
 import { Checkbox } from "@/components/ui/checkbox"
 import { Textarea } from "@/components/ui/textarea"
 import Image from "next/image"
+import { baseProducts } from "@/app/category/[slug]/data"
+import { subscribeToPrice } from "@/lib/firebase"
+import { productIdMap } from "@/app/category/[slug]/data"
 
 interface Product {
   id: number;
   name: string;
   description: string;
-  price: number;
   image: string;
   category: string;
 }
 
 export default function FormPage({ params }: { params: Promise<{ id: string }> }) {
   const [product, setProduct] = useState<Product | null>(null);
+  const [price, setPrice] = useState<number>(0);
   const [formData, setFormData] = useState({
     rentalPeriod: "30dias",
     acceptRequirements: true,
@@ -36,15 +38,25 @@ export default function FormPage({ params }: { params: Promise<{ id: string }> }
     async function fetchProduct() {
       const { id } = await params;
       const productId = Number.parseInt(id);
-      const foundProduct = products.find((p) => p.id === productId) || {
+      const foundProduct = baseProducts.find((p) => p.id === productId) || {
         id: 0,
         name: "Producto no encontrado",
         description: "",
-        price: 0,
         image: "",
         category: "",
       };
       setProduct(foundProduct);
+
+      // Suscribirse al precio del producto
+      if (foundProduct.id !== 0) {
+        const firestoreId = productIdMap[foundProduct.id];
+        if (firestoreId) {
+          const unsubscribe = subscribeToPrice(firestoreId, (newPrice) => {
+            setPrice(newPrice || 0);
+          });
+          return () => unsubscribe();
+        }
+      }
     }
 
     fetchProduct();
@@ -61,7 +73,7 @@ export default function FormPage({ params }: { params: Promise<{ id: string }> }
 
   // Format WhatsApp message
   const formatWhatsAppMessage = () => {
-    const message = `Solicitud de Alquiler - MARKET ortopedia:\n\nProducto: ${product.name}\nDuración: 30 días\nPrecio: $${product.price.toFixed(2)}\n\nForma de Alquiler: ${formData.rentalPeriod === "30dias" ? "Alquiler 30 días" : ""}\n\n ${formData.acceptRequirements ? "Consultar los requisitos para poder alquilar" : ""}\n\nMétodo de Pago: ${formData.paymentMethod === "transferencia" ? "Transferencia" : "Efectivo"}\n\nMétodo de Entrega: ${formData.deliveryMethod === "presencial" ? "Presencial" : "A convenir"}\n\n${formData.additionalInfo ? `Información Adicional: ${formData.additionalInfo}` : ""}`;
+    const message = `Solicitud de Alquiler - MARKET ortopedia:\n\nProducto: ${product.name}\nDuración: 30 días\nPrecio: $${price.toFixed(2)}\n\nForma de Alquiler: ${formData.rentalPeriod === "30dias" ? "Alquiler 30 días" : ""}\n\n ${formData.acceptRequirements ? "Consultar los requisitos para poder alquilar" : ""}\n\nMétodo de Pago: ${formData.paymentMethod === "transferencia" ? "Transferencia" : "Efectivo"}\n\nMétodo de Entrega: ${formData.deliveryMethod === "presencial" ? "Presencial" : "A convenir"}\n\n${formData.additionalInfo ? `Información Adicional: ${formData.additionalInfo}` : ""}`;
 
     console.log('Mensaje de WhatsApp:', decodeURIComponent(message));
     return encodeURIComponent(message);
@@ -87,27 +99,27 @@ export default function FormPage({ params }: { params: Promise<{ id: string }> }
         </div>
       </header>
 
-      <main className="container px-4 py-6 max-w-2xl mx-auto">
-        <div className="bg-white rounded-lg p-4 mb-6 flex flex-col sm:flex-row items-center gap-4 shadow-sm">
-          <div className="relative w-24 h-24 flex-shrink-0">
-            <Image
-              src={product.image}
-              alt={product.name}
-              fill
-              style={{ objectFit: 'contain' }}
-              sizes="96px"
-              priority
-              className="rounded-md"
-            />
-          </div>
-          <div className="flex-1 text-center sm:text-left">
-            <h2 className="font-bold text-lg text-zinc-900">{product.name}</h2>
-            <p className="text-zinc-600 text-sm">{product.description}</p>
-            <p className="font-bold text-[#00a0e3] mt-1">${product.price.toFixed(2)}</p>
-          </div>
-        </div>
-
+      <main className="container mx-auto px-4 py-8 max-w-2xl">
         <form onSubmit={handleSubmit} className="space-y-6">
+          <div className="bg-white rounded-lg p-4 mb-6 flex flex-col sm:flex-row items-center gap-4 shadow-sm">
+            <div className="relative w-24 h-24 flex-shrink-0">
+              <Image
+                src={product.image}
+                alt={product.name}
+                fill
+                style={{ objectFit: 'contain' }}
+                sizes="96px"
+                priority
+                className="rounded-md"
+              />
+            </div>
+            <div className="flex-1 text-center sm:text-left">
+              <h2 className="font-bold text-lg text-zinc-900">{product.name}</h2>
+              <p className="text-zinc-600 text-sm">{product.description}</p>
+              <p className="font-bold text-[#00a0e3] mt-1">${price.toFixed(2)}</p>
+            </div>
+          </div>
+
           <div className="space-y-4">
             <h3 className="font-medium text-lg text-zinc-900">Forma</h3>
             <RadioGroup

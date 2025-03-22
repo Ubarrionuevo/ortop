@@ -14,7 +14,52 @@ export default function Home() {
   const [isSearchOpen, setIsSearchOpen] = useState(false)
   const [searchQuery, setSearchQuery] = useState("")
   const [isHoursModalOpen, setIsHoursModalOpen] = useState(false)
+  const [isOpen, setIsOpen] = useState(false)
   const router = useRouter()
+
+  // Función para verificar si el local está abierto
+  useEffect(() => {
+    const checkIfOpen = () => {
+      const now = new Date()
+      const day = now.getDay() // 0 es domingo, 1-5 es lunes a viernes, 6 es sábado
+      const hour = now.getHours()
+      const minutes = now.getMinutes()
+      const currentTime = hour + minutes / 60
+
+      // Fines de semana
+      if (day === 0) { // Domingo
+        return false
+      }
+      
+      if (day === 6) { // Sábado
+        return currentTime >= 9 && currentTime < 12
+      }
+
+      // Lunes a viernes
+      if (day >= 1 && day <= 5) {
+        // Horario de mañana: 9 a 13
+        if (currentTime >= 9 && currentTime < 13) {
+          return true
+        }
+        // Horario de tarde: 16 a 18
+        if (currentTime >= 16 && currentTime < 18) {
+          return true
+        }
+      }
+
+      return false
+    }
+
+    // Actualizar el estado cada minuto
+    const updateOpenStatus = () => {
+      setIsOpen(checkIfOpen())
+    }
+
+    updateOpenStatus() // Verificar estado inicial
+    const interval = setInterval(updateOpenStatus, 60000) // Actualizar cada minuto
+
+    return () => clearInterval(interval)
+  }, [])
 
   // Function to handle search
   const handleSearch = () => {
@@ -99,7 +144,7 @@ export default function Home() {
 
                   <div className="mt-6 pt-6 border-t border-zinc-200">
                     <a
-                      href="https://wa.me/5491112345678?text=Hola,%20quiero%20un%20catálogo%20como%20este%20para%20mi%20negocio"
+                      href="https://wa.me/5492617153857?text=Hola,%20quiero%20un%20catálogo%20como%20este%20para%20mi%20negocio"
                       target="_blank"
                       rel="noopener noreferrer"
                       className="block w-full py-3 px-4 bg-[#00a0e3] hover:bg-[#0088c2] text-white text-center font-medium rounded-md transition-colors"
@@ -176,12 +221,16 @@ export default function Home() {
       {/* Status Banner */}
       <Dialog open={isHoursModalOpen} onOpenChange={setIsHoursModalOpen}>
         <DialogTrigger asChild>
-          <div className="bg-blue-50 text-blue-900 cursor-pointer hover:bg-blue-100 transition-colors">
+          <div className={`${isOpen ? 'bg-green-50 text-green-900' : 'bg-blue-50 text-blue-900'} cursor-pointer hover:bg-opacity-90 transition-colors`}>
             <div className="container mx-auto max-w-4xl py-2 px-4 flex items-center justify-center text-center">
-              <Clock className="h-5 w-5 flex-shrink-0 mr-3 text-[#00a0e3]" />
+              <Clock className={`h-5 w-5 flex-shrink-0 mr-3 ${isOpen ? 'text-green-500' : 'text-[#00a0e3]'}`} />
               <div>
-                <p className="font-medium text-lg">En este momento estamos cerrados</p>
-                <p className="text-sm text-blue-700">Hacé click para consultar nuestros horarios</p>
+                <p className="font-medium text-lg">
+                  {isOpen ? 'Abierto ahora' : 'En este momento estamos cerrados'}
+                </p>
+                <p className={`text-sm ${isOpen ? 'text-green-700' : 'text-blue-700'}`}>
+                  Hacé click para consultar nuestros horarios
+                </p>
               </div>
             </div>
           </div>
@@ -265,7 +314,7 @@ export default function Home() {
                 Creamos catálogos personalizados para tu negocio.
               </p>
               <a
-                href="https://wa.me/5491112345678?text=Hola,%20quiero%20un%20catálogo%20como%20este%20para%20mi%20negocio"
+                href="https://wa.me/5492617153857?text=Hola,%20quiero%20un%20catálogo%20como%20este%20para%20mi%20negocio"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-block bg-[#00a0e3] hover:bg-[#0088c2] text-white text-sm px-6 py-2 rounded-md transition-colors"
