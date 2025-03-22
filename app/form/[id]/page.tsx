@@ -23,6 +23,7 @@ interface Product {
   description: string;
   image: string;
   category: string;
+  price?: number;
 }
 
 export default function FormPage({ params }: { params: Promise<{ id: string }> }) {
@@ -55,7 +56,7 @@ export default function FormPage({ params }: { params: Promise<{ id: string }> }
       if (foundProduct.id !== 0) {
         const firestoreId = productIdMap[foundProduct.id];
         if (firestoreId) {
-          const unsubscribe = subscribeToPrice(firestoreId, (newPrice) => {
+          const unsubscribe = subscribeToPrice(firestoreId, (newPrice: number | null) => {
             setPrice(newPrice || 0);
           });
           return () => unsubscribe();
