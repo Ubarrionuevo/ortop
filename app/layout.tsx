@@ -57,7 +57,7 @@ export const metadata: Metadata = {
     default: "Ortopedia en Mendoza | MarketOrtopedia - Alquiler de Equipos Ortopédicos",
     template: "%s | Ortopedia en Mendoza - MarketOrtopedia"
   },
-  description: "La mejorrrr ortopedia en Mendoza. Alquiler de equipos ortopédicos: sillas de ruedas, camas ortopédicas, andadores y muletas. Servicio profesional en Ciudad de Mendoza. ¡Consulta disponibilidad!",
+  description: "La mejorr ortopedia en Mendoza. Alquiler de equipos ortopédicos: sillas de ruedas, camas ortopédicas, andadores y muletas. Servicio profesional en Ciudad de Mendoza. ¡Consulta disponibilidad!",
   keywords: ["ortopedia en mendoza", "alquiler ortopedia mendoza", "equipos ortopédicos mendoza", "sillas de ruedas mendoza", "camas ortopédicas mendoza", "andadores mendoza", "muletas mendoza", "ortopedia ciudad mendoza"],
   authors: [{ name: "MarketOrtopedia" }],
   creator: "MarketOrtopedia",
@@ -151,7 +151,7 @@ export default function RootLayout({
                 </Link>
               </div>
               <p className="text-sm text-gray-600">
-                © 2024 MarketOrtopedia. Todos los derechos reservados.
+                © 2024 MarketOrtopediaaaaaa. Todos los derechos reservados.
               </p>
             </div>
           </div>
