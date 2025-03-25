@@ -14,8 +14,8 @@ export default function LoginPage() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setLoading(true);
     setError("");
+    setLoading(true);
 
     try {
       const response = await fetch('/api/auth/login', {
@@ -31,8 +31,7 @@ export default function LoginPage() {
       } else {
         setError("Credenciales incorrectas");
       }
-    } catch (error) {
-      console.error("Error al iniciar sesión:", error);
+    } catch (err) {
       setError("Error al iniciar sesión");
     } finally {
       setLoading(false);
@@ -82,17 +81,19 @@ export default function LoginPage() {
                   required
                 />
               </div>
-              {error && (
-                <div className="text-red-600 text-sm">{error}</div>
-              )}
-              <button
-                type="submit"
-                disabled={loading}
-                className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 disabled:opacity-50"
-              >
-                {loading ? "Verificando..." : "Acceder"}
-              </button>
             </div>
+
+            {error && (
+              <div className="text-red-600 text-sm mt-4">{error}</div>
+            )}
+
+            <button
+              type="submit"
+              disabled={loading}
+              className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 disabled:opacity-50 mt-6"
+            >
+              {loading ? "Verificando..." : "Acceder"}
+            </button>
           </form>
         </div>
       </main>

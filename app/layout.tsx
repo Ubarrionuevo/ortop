@@ -144,7 +144,7 @@ export default function RootLayout({
             <div className="flex flex-col items-center justify-center space-y-2">
               <div className="flex items-center space-x-4">
                 <Link 
-                  href="/admin"
+                  href="/admin/login"
                   className="text-sm text-[#00a0e3] hover:text-[#0088c2] transition-colors duration-200"
                 >
                   Panel de Administración

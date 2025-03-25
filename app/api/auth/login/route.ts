@@ -5,19 +5,17 @@ export async function POST(request: Request) {
   try {
     const { username, password } = await request.json()
 
-    if (
-      username === process.env.ADMIN_USERNAME &&
-      password === process.env.ADMIN_PASSWORD
-    ) {
+    // Verificar las credenciales contra las variables de entorno
+    if (username === process.env.ADMIN_USERNAME && password === process.env.ADMIN_PASSWORD) {
       // Crear una cookie de sesión
-      cookies().set('admin_session', 'true', {
+      const response = NextResponse.json({ success: true })
+      response.cookies.set('admin_session', 'authenticated', {
         httpOnly: true,
         secure: process.env.NODE_ENV === 'production',
         sameSite: 'lax',
-        maxAge: 60 * 60 * 24 // 24 horas
+        maxAge: 30 * 60 // 30 minutos
       })
-
-      return NextResponse.json({ success: true })
+      return response
     }
 
     return NextResponse.json(
