@@ -6,6 +6,7 @@ import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
 
 export default function LoginPage() {
+  const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
@@ -17,16 +18,18 @@ export default function LoginPage() {
     setError("");
 
     try {
-      const response = await fetch('/admin', {
+      const response = await fetch('/api/auth/login', {
+        method: 'POST',
         headers: {
-          'Authorization': `Bearer ${password}`
-        }
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ username, password }),
       });
 
       if (response.ok) {
         router.push("/admin");
       } else {
-        setError("Contraseña incorrecta");
+        setError("Credenciales incorrectas");
       }
     } catch (error) {
       console.error("Error al iniciar sesión:", error);
@@ -53,6 +56,19 @@ export default function LoginPage() {
         <div className="w-full max-w-md">
           <form onSubmit={handleSubmit} className="bg-white p-8 rounded-lg shadow-md">
             <div className="space-y-4">
+              <div>
+                <label htmlFor="username" className="block text-sm font-medium text-gray-700">
+                  Usuario
+                </label>
+                <input
+                  type="text"
+                  id="username"
+                  value={username}
+                  onChange={(e) => setUsername(e.target.value)}
+                  className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
+                  required
+                />
+              </div>
               <div>
                 <label htmlFor="password" className="block text-sm font-medium text-gray-700">
                   Contraseña
