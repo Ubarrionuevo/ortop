@@ -5,28 +5,28 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = 'https://marketortopedia.com.ar'
 
   // Páginas estáticas
-  const staticPages = [
+  const staticPages: MetadataRoute.Sitemap = [
     {
       url: baseUrl,
       lastModified: new Date(),
-      changeFrequency: 'daily',
+      changeFrequency: 'daily' as const,
       priority: 1,
     },
   ]
 
   // Páginas de categorías
-  const categoryPages = categories.map((category) => ({
+  const categoryPages: MetadataRoute.Sitemap = categories.map((category) => ({
     url: `${baseUrl}/category/${category.slug}`,
     lastModified: new Date(),
-    changeFrequency: 'weekly',
+    changeFrequency: 'weekly' as const,
     priority: 0.8,
   }))
 
   // Páginas de productos
-  const productPages = baseProducts.map((product) => ({
+  const productPages: MetadataRoute.Sitemap = baseProducts.map((product) => ({
     url: `${baseUrl}/form/${product.id}`,
     lastModified: new Date(),
-    changeFrequency: 'weekly',
+    changeFrequency: 'weekly' as const,
     priority: 0.6,
   }))
 
