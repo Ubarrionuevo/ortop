@@ -65,7 +65,10 @@ export default function AdminPage() {
       }
     } catch (error) {
       console.error("Error al guardar el precio:", error);
-      setMessage({ text: error.message || "Error al actualizar el precio", type: "error" });
+      setMessage({ 
+        text: error instanceof Error ? error.message : "Error al actualizar el precio", 
+        type: "error" 
+      });
     } finally {
       setLoading(prev => ({ ...prev, [productId]: false }));
       
