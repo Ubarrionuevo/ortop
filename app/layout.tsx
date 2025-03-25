@@ -151,7 +151,7 @@ export default function RootLayout({
                 </Link>
               </div>
               <p className="text-sm text-gray-600">
-                © 2024 MarketOrtopediaaaaaa. Todos los derechos reservados.
+                © 2024 MarketOrtopediaaaaaaa. Todos los derechos reservados.
               </p>
             </div>
           </div>
