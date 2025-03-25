@@ -1,5 +1,4 @@
 import { NextResponse } from 'next/server'
-import { cookies } from 'next/headers'
 
 export async function POST(request: Request) {
   try {
@@ -7,7 +6,7 @@ export async function POST(request: Request) {
 
     // Verificar las credenciales contra las variables de entorno
     if (username === process.env.ADMIN_USERNAME && password === process.env.ADMIN_PASSWORD) {
-      // Crear una cookie de sesión
+      // Crear la cookie de sesión
       const response = NextResponse.json({ success: true })
       response.cookies.set('admin_session', 'authenticated', {
         httpOnly: true,
