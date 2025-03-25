@@ -3,7 +3,8 @@
 import { useState, useEffect } from "react";
 import { getProductPrice, updateProductPrice } from "@/lib/firebase";
 import Link from "next/link";
-import { ArrowLeft } from "lucide-react";
+import { ArrowLeft, LogOut } from "lucide-react";
+import { useRouter } from "next/navigation";
 
 const products = [
   { id: "andador-ruedas", name: "Andador con Ruedas" },
@@ -22,6 +23,7 @@ export default function AdminPage() {
   const [prices, setPrices] = useState<{ [key: string]: string }>({});
   const [loading, setLoading] = useState<{ [key: string]: boolean }>({});
   const [message, setMessage] = useState<{ text: string; type: "success" | "error" } | null>(null);
+  const router = useRouter();
 
   useEffect(() => {
     const fetchPrices = async () => {
@@ -79,6 +81,20 @@ export default function AdminPage() {
     }
   };
 
+  const handleLogout = async () => {
+    try {
+      const response = await fetch('/api/auth/logout', {
+        method: 'POST',
+      });
+
+      if (response.ok) {
+        router.push('/');
+      }
+    } catch (error) {
+      console.error('Error al cerrar sesión:', error);
+    }
+  };
+
   return (
     <div className="min-h-screen bg-zinc-50">
       {/* Header */}
@@ -88,7 +104,13 @@ export default function AdminPage() {
             <ArrowLeft className="h-5 w-5 text-zinc-600" />
           </Link>
           <h1 className="flex-1 text-center font-bold text-xl text-zinc-900">Panel de Administración</h1>
-          <div className="w-10"></div>
+          <button
+            onClick={handleLogout}
+            className="flex items-center space-x-2 px-4 py-2 text-sm text-red-600 hover:text-red-700 transition-colors"
+          >
+            <LogOut className="h-4 w-4" />
+            <span>Cerrar sesión</span>
+          </button>
         </div>
       </header>
 
