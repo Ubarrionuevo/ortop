@@ -1,6 +1,5 @@
 import { MetadataRoute } from 'next'
-import { categories } from './category/[slug]/data'
-import { products } from './form/[id]/data'
+import { categories, baseProducts } from './category/[slug]/data'
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = 'https://marketortopedia.com.ar'
@@ -24,7 +23,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   }))
 
   // Páginas de productos
-  const productPages = products.map((product) => ({
+  const productPages = baseProducts.map((product) => ({
     url: `${baseUrl}/form/${product.id}`,
     lastModified: new Date(),
     changeFrequency: 'weekly',
