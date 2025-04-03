@@ -12,7 +12,7 @@ import { Checkbox } from "@/components/ui/checkbox"
 import { Textarea } from "@/components/ui/textarea"
 import Image from "next/image"
 import { baseProducts } from "@/app/category/[slug]/data"
-import { subscribeToPrice } from "@/lib/firebase"
+import { subscribeToPrice, registrarClickWhatsApp, incrementarClicksWhatsApp } from "@/lib/firebase"
 import { productIdMap } from "@/app/category/[slug]/data"
 import { usePreviewMode } from "@/lib/hooks/usePreviewMode"
 import { PreviewOrderDialog } from "@/components/PreviewOrderDialog"
@@ -24,6 +24,18 @@ interface Product {
   image: string;
   category: string;
   price?: number;
+}
+
+declare global {
+  interface Window {
+    gtag: (
+      command: string,
+      eventName: string,
+      eventParams?: {
+        [key: string]: any;  // GA4 permite parámetros personalizados
+      }
+    ) => void;
+  }
 }
 
 export default function FormPage({ params }: { params: Promise<{ id: string }> }) {
@@ -85,7 +97,7 @@ export default function FormPage({ params }: { params: Promise<{ id: string }> }
   }
 
   // Handle form submission
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     const message = formatWhatsAppMessage()
 
@@ -93,6 +105,9 @@ export default function FormPage({ params }: { params: Promise<{ id: string }> }
       setIsPreviewDialogOpen(true)
       return
     }
+
+    // Incrementar contador de clicks
+    await incrementarClicksWhatsApp();
 
     const phoneNumber = "+5492617153857"
     window.open(`whatsapp://send?phone=${phoneNumber}&text=${message}`, "_blank")
