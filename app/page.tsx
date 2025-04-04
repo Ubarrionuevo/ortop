@@ -11,15 +11,22 @@ import Image from "next/image"
 import myImage from '../public/cama-ortopedica.jpg';
 import { usePreviewMode } from "@/lib/hooks/usePreviewMode"
 import { PreviewOrderDialog } from "@/components/PreviewOrderDialog"
+import { useStore } from '@/lib/store/useStore'
 
 export default function Home() {
   const [isSearchOpen, setIsSearchOpen] = useState(false)
+  const { categories, isLoading, initializeCategories } = useStore()
   const [searchQuery, setSearchQuery] = useState("")
   const [isHoursModalOpen, setIsHoursModalOpen] = useState(false)
   const [isOpen, setIsOpen] = useState(false)
   const [isPreviewDialogOpen, setIsPreviewDialogOpen] = useState(false)
   const isPreviewMode = usePreviewMode()
   const router = useRouter()
+
+  // Inicializar categorías una sola vez
+  useEffect(() => {
+    initializeCategories()
+  }, [initializeCategories])
 
   // Función para verificar si el local está abierto
   useEffect(() => {
@@ -71,9 +78,11 @@ export default function Home() {
       return
     }
 
-    // Search through all categories and products
+    // Search through all categories
     const query = searchQuery.toLowerCase()
-    const matchingCategories = categories.filter((category) => category.name.toLowerCase().includes(query))
+    const matchingCategories = categories.filter((category) => 
+      category.name.toLowerCase().includes(query)
+    )
 
     if (matchingCategories.length > 0) {
       // If we find a matching category, navigate to it
@@ -280,14 +289,28 @@ export default function Home() {
           <div className="container mx-auto px-4">
             <h2 className="text-3xl font-bold mb-12 text-zinc-900 text-center">Nuestras Categorías</h2>
             <div className="hidden lg:grid grid-cols-3 gap-8 max-w-6xl mx-auto">
-              {categories.map((category) => (
-                <CategoryCard key={category.id} category={category} />
-              ))}
+              {isLoading ? (
+                // Mostrar skeleton loading
+                Array.from({ length: 6 }).map((_, index) => (
+                  <div key={index} className="bg-gray-100 rounded-lg h-[120px] animate-pulse" />
+                ))
+              ) : (
+                categories.map((category) => (
+                  <CategoryCard key={category.slug} category={category} />
+                ))
+              )}
             </div>
             <div className="lg:hidden flex flex-col space-y-3 max-w-3xl mx-auto">
-              {categories.map((category) => (
-                <CategoryCard key={category.id} category={category} />
-              ))}
+              {isLoading ? (
+                // Mostrar skeleton loading
+                Array.from({ length: 6 }).map((_, index) => (
+                  <div key={index} className="bg-gray-100 rounded-lg h-[120px] animate-pulse" />
+                ))
+              ) : (
+                categories.map((category) => (
+                  <CategoryCard key={category.slug} category={category} />
+                ))
+              )}
             </div>
           </div>
         </section>
@@ -348,7 +371,6 @@ export default function Home() {
 }
 
 interface Category {
-  id: number
   name: string
   image: string
   slug: string
@@ -356,50 +378,34 @@ interface Category {
 
 const categories: Category[] = [
   {
-    id: 1,
     name: "Sillas de Ruedas",
-    image:
-      "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/silla%20plegable%20de%20ruedas%202-lnzKWIDuIiFeXfv11Ulmi4l5B7lX6N.webp",
+    image: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/silla%20plegable%20de%20ruedas%202-lnzKWIDuIiFeXfv11Ulmi4l5B7lX6N.webp",
     slug: "sillas-de-ruedas",
   },
   {
-    id: 2,
     name: "Andadores",
     image: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/andador2-z9Ve66NV2ieVOfiaBGnvjcQBTHZCuy.webp",
     slug: "andadores",
   },
   {
-    id: 3,
     name: "Férulas",
     image: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/ferula%202-EQJBuk2RvbwwkQr5vFpAfTURzlS730.webp",
     slug: "ferulas",
   },
   {
-    id: 4,
     name: "Inodoros Portátiles",
-    image:
-      "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/1-5-aa8896f0afa2ce38ad17369552578133-480-0-WfQYqc03KsjDfsAIrH80nyVbToPXGg.webp",
+    image: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/1-5-aa8896f0afa2ce38ad17369552578133-480-0-WfQYqc03KsjDfsAIrH80nyVbToPXGg.webp",
     slug: "inodoros-portatiles",
   },
   {
-    id: 5,
     name: "Grúas",
-    image:
-      "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/web-web-market-f12d3bfdd4a250a80117370692608748-480-0-ilnZAJDraPBEcfraMvgMj9p9nAingz.webp",
+    image: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/web-web-market-f12d3bfdd4a250a80117370692608748-480-0-ilnZAJDraPBEcfraMvgMj9p9nAingz.webp",
     slug: "gruas",
   },
   {
-    id: 6,
     name: "Muletas",
-    image:
-      "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/web-web-market-0e860da99f331263a317370662945940-480-0-arVwwSqJQk5PEqGqk4wC7N3byM99jV.webp",
+    image: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/web-web-market-0e860da99f331263a317370662945940-480-0-arVwwSqJQk5PEqGqk4wC7N3byM99jV.webp",
     slug: "muletas",
-  },
-  {
-    id: 7,
-    name: "Camas",
-    image: "/cama.webp",
-    slug: "camas",
   },
 ]
 
