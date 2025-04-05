@@ -116,7 +116,7 @@ export default function Home() {
       setIsPreviewDialogOpen(true)
       return
     }
-    window.open("https://wa.me/5492617153857?text=Hola,%20quiero%20un%20catálogo%20como%20este%20para%20mi%20negocio", "_blank")
+    window.open("https://web.whatsapp.com/send?phone=5492617153857&text=Hola,%20quiero%20un%20catálogo%20como%20este%20para%20mi%20negocio", "_blank")
   }
 
   return (
