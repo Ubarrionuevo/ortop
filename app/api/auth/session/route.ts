@@ -2,6 +2,9 @@ import { NextResponse } from 'next/server'
 import { auth } from '@/lib/firebase-admin'
 import { cookies } from 'next/headers'
 
+// Indicar que esta ruta es dinámica
+export const dynamic = 'force-dynamic'
+
 export async function POST(request: Request) {
   try {
     const { idToken } = await request.json()
