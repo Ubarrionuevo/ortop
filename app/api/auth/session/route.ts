@@ -33,4 +33,11 @@ export async function DELETE() {
     console.error('Error al cerrar la sesión:', error)
     return NextResponse.json({ error: 'Error al cerrar la sesión' }, { status: 500 })
   }
+}
+
+export async function GET() {
+  return NextResponse.json({ 
+    authenticated: false,
+    message: 'No autenticado'
+  })
 } 
