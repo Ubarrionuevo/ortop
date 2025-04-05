@@ -2,8 +2,9 @@ import { NextResponse } from 'next/server'
 import { auth } from '@/lib/firebase-admin'
 import { cookies } from 'next/headers'
 
-// Indicar que esta ruta es dinámica
+// Configuración para Vercel
 export const dynamic = 'force-dynamic'
+export const runtime = 'edge'
 
 export async function POST(request: Request) {
   try {
