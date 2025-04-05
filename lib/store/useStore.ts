@@ -1,5 +1,4 @@
 import { create } from 'zustand'
-import { baseProducts } from '@/lib/data'
 
 interface Category {
   name: string
