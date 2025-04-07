@@ -45,7 +45,7 @@ const defaultCategories: Category[] = [
   },
   {
     name: "Camas",
-    image: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/cama-ortopedica-azul-1-Hs7Hs4Hs7Hs4Hs7Hs4Hs7Hs4Hs7Hs4.webp",
+    image: "/cama.webp",
     slug: "camas",
   },
 ]
