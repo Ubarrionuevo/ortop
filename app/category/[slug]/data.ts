@@ -126,7 +126,7 @@ export const baseProducts: Product[] = [
   {
     id: 9,
     name: "Cama Ortopédica Manual",
-    description: "Cama ortopédica con ajuste manual de altura y posición, incluye colchón",
+    description: "Cama ortopédica con ajuste manual de altura y posición, colchón opcional",
     image: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/cama-ortopedica-manual.webp",
     category: "camas",
   },
