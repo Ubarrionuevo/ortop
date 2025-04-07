@@ -122,13 +122,14 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="es">
+    <html lang="es" suppressHydrationWarning>
       <head>
         <link rel="canonical" href="https://marketortopedia.com.ar" />
         <meta name="geo.region" content="AR-M" />
         <meta name="geo.placename" content="Mendoza" />
         <meta name="geo.position" content="-32.889458;-68.845839" />
         <meta name="ICBM" content="-32.889458, -68.845839" />
+        <link rel="apple-touch-icon" href="/apple-icon.png" />
       </head>
       <body className={inter.className}>
         <Script

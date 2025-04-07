@@ -62,7 +62,7 @@ export const categories: Category[] = [
     name: "Camas",
     image: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/cama-ortopedica-manual.webp",
     slug: "camas",
-    description: "Cama ortopédica con ajuste manual de altura y posición, incluye colchón",
+    description: "Cama ortopédica con ajuste manual de altura y posición, colchón opcional",
   },
 ];
 

@@ -43,6 +43,11 @@ const defaultCategories: Category[] = [
     image: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/web-web-market-0e860da99f331263a317370662945940-480-0-arVwwSqJQk5PEqGqk4wC7N3byM99jV.webp",
     slug: "muletas",
   },
+  {
+    name: "Camas",
+    image: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/cama-ortopedica-azul-1-Hs7Hs4Hs7Hs4Hs7Hs4Hs7Hs4Hs7Hs4.webp",
+    slug: "camas",
+  },
 ]
 
 export const useStore = create<AppState>((set) => ({
